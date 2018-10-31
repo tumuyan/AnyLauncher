@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AnyLuncher</string>
+    <string name="about_main" >You can choose any application and set it as the Luncher.</string>
+    <string name="about_author">By tumuyan,\nin 2018.10</string>
+    <string name="title_mode">Select Mode</string>
+    <string name="title_selected">Selected App</string>
+    <string name="item_r2">Switch application</string>
+    <string name="item_r1">Open default Activity</string>
+    <string name="btn_1">Set Luncher</string>
+    <string name="btn_2">Select App</string>
+    <string name="error_could_not_start">Not supported application.</string>
+    <string name="error_btn1">This button may be not working.\nYou should manual find the Luncher Selecter from the System Setting </string>
+</resources>

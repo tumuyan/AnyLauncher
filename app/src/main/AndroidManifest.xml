@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingActivity"
-            android:label="Setup AnyLuncher"
+            android:label="AnyLuncher"
             android:launchMode="singleInstance">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -51,11 +51,16 @@ public class SettingActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                try{
+                    Intent intent=new Intent();
+                    intent.setClassName("com.android.settings",
+                            "com.android.settings.applications.DefaultAppSelectionActivity");
+                    startActivity(intent);
 
-                Intent intent=new Intent();
-                intent.setClassName("com.android.settings",
-                        "com.android.settings.applications.DefaultAppSelectionActivity");
-                startActivity(intent);
+                }catch (Exception e){
+                    Toast.makeText(SettingActivity.this,R.string.error_btn1,Toast.LENGTH_LONG).show();
+                }
+
 
 /*                    try
                     {
@@ -67,7 +72,7 @@ public class SettingActivity extends Activity {
                         startActivity(intent);
                     }catch (Exception e){
                      }*/
-                Toast.makeText(SettingActivity.this,"这个功能看可能并没什么卵用，\n还是手动在系统里设置吧\n有解决问题的demo请联系我",Toast.LENGTH_LONG).show();
+
 
             }
         });

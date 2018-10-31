@@ -29,27 +29,29 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="选择启动模式"
+            android:text="@string/title_mode"
             android:textSize="20sp" />
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/r2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="setSetting"
-                android:text="只切换到应用" />
+                android:text="@string/item_r2" />
+
             <RadioButton
                 android:id="@+id/r1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="setSetting"
-                android:text="刷新应用主页" />
+                android:text="@string/item_r1" />
 
 
 
@@ -81,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="当前选中应用"
+                android:text="@string/title_selected"
                 android:textSize="20sp" />
 
             <TextView
@@ -110,14 +112,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="设置桌面" />
+                android:text="@string/btn_1" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="选择应用" />
+                android:text="@string/btn_2" />
 
         </LinearLayout>
 
@@ -141,10 +143,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal|center"
             android:gravity="center"
-            android:paddingTop="20dp"
+
+            android:text="@string/app_name"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:gravity="center"
 
             android:paddingBottom="20dp"
-            android:text="AnyLuncher\n设置任意应用为启动器"
+            android:text="@string/about_main"
             android:textSize="22sp" />
 
         <TextView
@@ -154,7 +165,7 @@
             android:layout_gravity="center_vertical|center_horizontal|center"
             android:gravity="center"
 
-            android:text="By Tumuyan\nin 2018.10"
+            android:text="@string/about_author"
             android:textSize="18sp" />
 
         <TextView

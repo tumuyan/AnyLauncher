@@ -60,7 +60,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
                     getContext().startActivity(intent);
 
                 }else{
-                    Toast.makeText(getContext(),"此应用无法设置为Luncher",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),R.string.error_could_not_start,Toast.LENGTH_SHORT).show();
                 }
             }
         });

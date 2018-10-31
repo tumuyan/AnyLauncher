@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AnyLuncher</string>
+    <string name="about_main">设置任意应用为启动器</string>
+    <string name="about_author">By tumuyan,\nin 2018.10</string>
+    <string name="title_mode">选择启动模式</string>
+    <string name="title_selected">当前选中应用</string>
+    <string name="item_r2">切换后台应用</string>
+    <string name="item_r1">打开应用主界面</string>
+    <string name="btn_1">设置桌面</string>
+    <string name="btn_2">选择应用</string>
+    <string name="error_could_not_start">此应用无法设置为Luncher</string>
+    <string name="error_btn1">这个功能看可能并没什么卵用，\n还是手动在系统里设置吧\n有解决问题的demo请联系我</string>
+</resources>
