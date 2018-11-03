@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.drm.DrmStore;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.tumuyan.fixedplay.App.SelectOne;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -34,7 +36,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         packageManager=getPackageManager();
         Log.w("MainActivity","Create");
-        go();
+   //     go();
         super.onCreate(savedInstanceState);
       /*         setContentView(R.layout.activity_main);
 
@@ -111,7 +113,7 @@ public class MainActivity extends Activity {
     @Override
     public void onStart(){
         Log.w("MainActivity","Start");
-        go();
+    //    go();
         super.onStart();
     }
     @Override
@@ -124,6 +126,8 @@ public class MainActivity extends Activity {
     public void go(){
         SharedPreferences read = getSharedPreferences("setting",MODE_MULTI_PROCESS);
         String app = read.getString("app", "");
+        String claseName=read.getString("class","");
+        String uri = read.getString("uri","");
         mode=read.getString("mode","r2");
         Log.w("MainActivity mode" ,mode+"\n packagename: "+app);
 
@@ -131,24 +135,78 @@ public class MainActivity extends Activity {
             switch (mode){
                 case "r2":
                 {
-               //     Log.w("MainActivity mode2" ,mode);
+                   Log.w("MainActivity mode2" ,mode);
                     Intent intent = packageManager.getLaunchIntentForPackage(app);
                     if (intent != null) startActivity(intent);
                     break;
                 }
 
-                case "r1":{
-                 //   Log.w("MainActivity mode1" ,mode);
+                case "r1":
+/*                    */
+                if(claseName.length()>5)
+                {
+                    Intent intent=new Intent();
+                    intent.setClassName(app,claseName);
+                    startActivity(intent);
+                }else {
+                    //   Log.w("MainActivity mode1" ,mode);
                     Intent intent = new Intent();
                     intent = packageManager.getLaunchIntentForPackage(app);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
                     this.startActivity(intent);
+                    }break;
+
+                case "uri":{
+                    Uri u = Uri.parse(uri);
+                    Intent intent = new Intent(Intent.ACTION_VIEW,u);
+
+
+                    if(claseName.length()>0){
+                        intent.setClassName(app,claseName);
+                    }else{
+                        intent.setPackage(app);
+                    }
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    startActivity(intent);
                     break;
                 }
 
+/*   似乎没用*/
+                case "uri_dail":{
+                    Uri u = Uri.parse(uri);
+                    Intent intent = new Intent(Intent.ACTION_DIAL, u);
+                    if(claseName.length()>0){
+                        intent.setClassName(app,claseName);
+                    }else{
+                        intent.setPackage(app);
+                    }
+                    startActivity(intent);
+                    break;
+                }
+
+                case "uri_file":{
+                    Intent intent = new Intent("android.intent.action.VIEW");
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if(claseName.length()>0){
+                        intent.setClassName(app,claseName);
+                    }else{
+                        intent.setPackage(app);
+                    }
+                    Uri u = Uri.fromFile(new File(uri));
+                    intent.setDataAndType(u, "*/*");
+                    startActivity(intent);
+
+                    break;
+                }
+
+
             }
 
-        }else{
+        }
+        else
+        {
             Intent intent=new Intent(MainActivity.this,SettingActivity.class);
             startActivity(intent);
         }

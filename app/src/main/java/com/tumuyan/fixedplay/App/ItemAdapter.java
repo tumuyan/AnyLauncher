@@ -28,6 +28,8 @@ import static android.content.Context.MODE_MULTI_PROCESS;
 
 public class ItemAdapter extends ArrayAdapter<Item> {
     private int layoutId;
+    private String mode="r2";
+    private String uri="";
 //    SQLiteDatabase db=SQLiteDatabase.openOrCreateDatabase(getContext().getDatabasePath("app"),null);
 
     public ItemAdapter(Context context, int layoutId, List<Item> list) {
@@ -35,10 +37,19 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         this.layoutId = layoutId;
     }
 
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
     @NonNull
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        Item item = getItem(position);
+        final Item item = getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(layoutId, parent, false);
         final String packageName=item.getPackageName();
 
@@ -51,9 +62,17 @@ public class ItemAdapter extends ArrayAdapter<Item> {
                 PackageManager pm =getContext(). getPackageManager();
                 Intent intent = pm.getLaunchIntentForPackage(packageName);
                 if (intent != null) {
-
-                    SharedPreferences.Editor editor = getContext().getSharedPreferences("setting", MODE_MULTI_PROCESS).edit();
+//                    SharedPreferences read =getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS);
+//                    String uri = read.getString("_uri", "");
+//                    String mode=read.getString("_mode","");
+                    SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
                     editor.putString("app", packageName);
+                    editor.putString("label", item.getName());
+                    editor.putString("class",item.getClassName());
+                    editor.putString("uri",uri);
+                    editor.putString("mode",mode);
+//                    editor.putString("_uri",uri);
+//                    editor.putString("_mode","");
                     editor.commit();
                  //   getContext().startActivity(intent);
                     intent=new Intent(getContext() ,SettingActivity.class);

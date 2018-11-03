@@ -4,21 +4,30 @@ import android.graphics.drawable.Drawable;
 
 public class Item {
     private String name;
-    private int imgId;
-    private Drawable appIcon=null;
     private String packageName;
-    private boolean isChecked=false;
+    private String className="";
+    private Drawable appIcon;
 
-    public Item(String name, int id) {
-        this.name = name;
-        this.imgId = id;
-    }
 
     public Item(String name,String packageName, Drawable appIcon){
         this.name=name;
         this.packageName=packageName;
         this.appIcon=appIcon;
+    }
 
+    public Item(String name,String packageName, String className,Drawable appIcon){
+        this.name=name;
+        this.packageName=packageName;
+        this.className=className;
+        this.appIcon=appIcon;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getClassName() {
+        return className;
     }
 
     public Drawable getAppIcon() {
@@ -33,7 +42,4 @@ public class Item {
         return name;
     }
 
-    public int getImgId() {
-        return imgId;
-    }
 }

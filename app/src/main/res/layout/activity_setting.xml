@@ -13,58 +13,28 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="3" />
-
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
-
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_mode"
-            android:textSize="20sp" />
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/r2"
+            <Button
+                android:id="@+id/button1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="setSetting"
-                android:text="@string/item_r2" />
+                android:text="@string/btn_1" />
 
-            <RadioButton
-                android:id="@+id/r1"
+            <Button
+                android:id="@+id/button2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="setSetting"
-                android:text="@string/item_r1" />
+                android:text="@string/btn_2" />
 
-
-
-            <RadioButton
-                android:id="@+id/r3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="setSetting"
-                android:text="RadioButton"
-                android:visibility="gone" />
-
-        </RadioGroup>
+        </LinearLayout>
 
         <View
             android:id="@+id/divider"
@@ -100,29 +70,6 @@
                 tools:text="PakageName" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/btn_1" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/btn_2" />
-
-        </LinearLayout>
-
         <View
             android:id="@+id/divider2"
             android:layout_width="match_parent"
@@ -131,6 +78,11 @@
             android:background="?android:attr/listDivider"
             tools:layout_editor_absoluteX="253dp"
             tools:layout_editor_absoluteY="87dp" />
+
+        <include
+            layout="@layout/applist_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView5"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AnyLuncher</string>
+    <string name="app_name">AnyLauncher</string>
     <string name="about_main">设置任意应用为启动器</string>
-    <string name="about_author">By tumuyan,\nin 2018.10</string>
+    <string name="about_author">By tumuyan,\nin 2018.11</string>
     <string name="title_mode">选择启动模式</string>
     <string name="title_selected">当前选中应用</string>
     <string name="item_r2">切换后台应用</string>
