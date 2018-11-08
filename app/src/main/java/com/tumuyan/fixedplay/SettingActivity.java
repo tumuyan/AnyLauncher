@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.tumuyan.fixedplay.App.ItemAdapter;
 import com.tumuyan.fixedplay.App.SelectOne;
+import com.tumuyan.fixedplay.Beta.SelectApp;
 
 public class SettingActivity extends Activity {
     PackageManager packageManager ;
@@ -53,7 +54,7 @@ public class SettingActivity extends Activity {
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String[] items3 = new String[]{"优先从后台切换到前台", "每次都重新打开应用Activity", "浏览网页", "打开地图","拨打电话","打开文件"};//创建item
+                final String[] items3 = new String[]{"优先从后台切换到前台", "每次都重新打开应用Activity", "浏览网页", "打开地图","拨打电话","打开文件","高级模式"};//创建item
                 AlertDialog alertDialog3 = new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("选择工作模式")
                      //   .setIcon(R.mipmap.ic_launcher)
@@ -98,8 +99,9 @@ public class SettingActivity extends Activity {
                                         _mode="uri_file";
                                         inputUri("文件路径","/sdcard/logs.txt","");
                                         break;
-
-
+                                    case 6:
+                                        Intent i6=new Intent(SettingActivity.this,SelectApp.class);
+                                        startActivity(i6);
 
 
 
@@ -120,10 +122,14 @@ public class SettingActivity extends Activity {
                     Intent intent=new Intent();
                     intent.setClassName("com.android.settings",
                             "com.android.settings.applications.DefaultAppSelectionActivity");
+                    intent.setAction("android.settings.HOME_SETTINGS");
                     startActivity(intent);
-
                 }catch (Exception e){
-                    Toast.makeText(SettingActivity.this,R.string.error_btn1,Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(Intent.ACTION_MAIN);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.addCategory(Intent.CATEGORY_HOME);
+                    startActivity(i);
+                 //   Toast.makeText(SettingActivity.this,R.string.error_btn1,Toast.LENGTH_LONG).show();
                 }
 
 
@@ -213,10 +219,16 @@ public class SettingActivity extends Activity {
                 public void run() {
                     Text_PackageName.setText(label);
                     //耗时操作，需要在子线程中完成操作后通知主线程实现UI更新
+                    String desc;
+                    if(uri.length()>0){
+                          desc=className+"\n"+uri;
+                    }else{
+                          desc=className;
+                    }
 
                     ((ImageView) findViewById(R.id.item_img)).setImageDrawable(icon);
                     ((TextView) findViewById(R.id.item_text)).setText(app);
-                    ((TextView) findViewById(R.id.item_packageName)).setText(uri+"\n"+className);
+                    ((TextView) findViewById(R.id.item_packageName)).setText(desc);
                 }
 
             });

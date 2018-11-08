@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
     boolean v_down=false;
     PackageManager packageManager ;
     final String THIS_PACKAGE="com.tumuyan.fixedplay";
-    String mode="r2";
+    String mode="r2",action="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +129,7 @@ public class MainActivity extends Activity {
         String claseName=read.getString("class","");
         String uri = read.getString("uri","");
         mode=read.getString("mode","r2");
+        action=read.getString("action","");
         Log.w("MainActivity mode" ,mode+"\n packagename: "+app);
 
         if (app.length()>0 && app!=THIS_PACKAGE){
@@ -142,19 +143,55 @@ public class MainActivity extends Activity {
                 }
 
                 case "r1":
-/*                    */
-                if(claseName.length()>5)
-                {
-                    Intent intent=new Intent();
-                    intent.setClassName(app,claseName);
-                    startActivity(intent);
-                }else {
-                    //   Log.w("MainActivity mode1" ,mode);
-                    Intent intent = new Intent();
-                    intent = packageManager.getLaunchIntentForPackage(app);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
-                    this.startActivity(intent);
+                    /*                    */
+                    if(claseName.length()>5)
+                    {
+                        Intent intent=new Intent();
+                        intent.setClassName(app,claseName);
+                        startActivity(intent);
+                    }else {
+                        //   Log.w("MainActivity mode1" ,mode);
+                        Intent intent = new Intent();
+                        intent = packageManager.getLaunchIntentForPackage(app);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
+                        this.startActivity(intent);
                     }break;
+                case "beta":
+                    /*                    */{
+
+
+
+                    Intent intent=new Intent();
+
+                    if(action.length()>0 && !"none".equals(action)){
+                        intent.setAction(action);
+                    }
+
+                    if(claseName.length()>5)
+                    {
+                        intent.setClassName(app,claseName);
+
+                    }else {
+                        intent = packageManager.getLaunchIntentForPackage(app);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
+
+                    }
+                    try{
+                        startActivity(intent);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        Toast.makeText(this,"模式"+mode + "启动应用时发生了错误",Toast.LENGTH_SHORT).show();
+                         intent=new Intent(MainActivity.this,SettingActivity.class);
+                        startActivity(intent);
+
+                    }
+
+
+                }
+
+
+
+                    break;
 
                 case "uri":{
                     Uri u = Uri.parse(uri);

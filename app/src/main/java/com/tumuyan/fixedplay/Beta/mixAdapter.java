@@ -1,11 +1,12 @@
 
-package com.tumuyan.fixedplay.App;
+package com.tumuyan.fixedplay.Beta;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tumuyan.fixedplay.App.Item;
 import com.tumuyan.fixedplay.R;
 import com.tumuyan.fixedplay.SettingActivity;
 
@@ -25,19 +27,15 @@ import static android.content.Context.MODE_MULTI_PROCESS;
 /**
  * Created by baniel on 1/19/17.
  */
-
-public class ItemAdapter extends ArrayAdapter<Item> {
+public class mixAdapter extends ArrayAdapter<Item> {
     private int layoutId;
     private String mode="r2";
     private String uri="";
-//    SQLiteDatabase db=SQLiteDatabase.openOrCreateDatabase(getContext().getDatabasePath("app"),null);
 
-    public ItemAdapter(Context context, int layoutId, List<Item> list) {
+    public mixAdapter(Context context, int layoutId, List<Item> list) {
         super(context, layoutId, list);
         this.layoutId = layoutId;
     }
-
-
     public void setMode(String mode) {
         this.mode = mode;
     }
@@ -49,6 +47,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     @NonNull
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
+
         final Item item = getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(layoutId, parent, false);
         final String packageName=item.getPackageName();
@@ -74,6 +73,17 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+          //      Log.w("mixadapter","setOnItemDeleteClickListener");
+
+                mOnItemDeleteListener.onDeleteClick(position);
+            }
+        });
+
+ /*       view.setOnClickListener(myClickListener);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 PackageManager pm =getContext(). getPackageManager();
                 Intent intent = pm.getLaunchIntentForPackage(packageName);
                 if (intent != null) {
@@ -95,23 +105,22 @@ public class ItemAdapter extends ArrayAdapter<Item> {
                 }
             }
         });
+*/
 
         return view;
     }
-
-
     /**
-     * @param
-     * @描述 通过包名启动其他应用，假如应用已经启动了在后台运行，则会将应用切到前台
-     * @作者 tll
-     * @时间 2017/2/7 17:40
+     * 删除按钮的监听接口
      */
-    public static void startActivityForPackage(Context context, String packName) {
-        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packName);
-        context.startActivity(intent);
+    public interface onItemDeleteListener {
+        void onDeleteClick(int i);
     }
 
+    private onItemDeleteListener mOnItemDeleteListener;
 
+    public void setOnItemDeleteClickListener(onItemDeleteListener mOnItemDeleteListener) {
+        this.mOnItemDeleteListener = mOnItemDeleteListener;
+    }
 }
 
 

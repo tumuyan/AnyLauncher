@@ -10,5 +10,7 @@
     <string name="btn_1">Set Luncher</string>
     <string name="btn_2">Select App</string>
     <string name="error_could_not_start">Not supported application.</string>
+
     <string name="error_btn1">This button may be not working.\nYou should manual find the Luncher Selecter from the System Setting </string>
+    <string name="search">Search</string>
 </resources>

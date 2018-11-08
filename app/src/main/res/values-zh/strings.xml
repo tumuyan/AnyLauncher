@@ -11,4 +11,5 @@
     <string name="btn_2">选择应用</string>
     <string name="error_could_not_start">此应用无法设置为Luncher</string>
     <string name="error_btn1">这个功能看可能并没什么卵用，\n还是手动在系统里设置吧\n有解决问题的demo请联系我</string>
+    <string name="search">搜索</string>
 </resources>
