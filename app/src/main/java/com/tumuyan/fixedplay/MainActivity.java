@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.tumuyan.fixedplay.App.SelectOne;
@@ -131,6 +132,65 @@ public class MainActivity extends Activity {
         mode=read.getString("mode","r2");
         action=read.getString("action","");
         Log.w("MainActivity mode" ,mode+"\n packagename: "+app);
+
+        boolean apply2nd=read.getBoolean("apply2nd",false);
+        long lastTime=read.getLong("lastTime",0);
+        int combo=read.getInt("combo",0);
+
+        final String app_2nd = read.getString("app_2nd", "");
+        final String class_2nd=read.getString("class_2nd","");
+        Log.w("2nd",app_2nd);
+
+
+        if(apply2nd){
+            long time=   System.currentTimeMillis();
+            if(time-lastTime<500){
+                combo++;
+            }else{
+                combo=0;
+            }
+
+            {
+                SharedPreferences.Editor editor = getSharedPreferences("setting", MODE_MULTI_PROCESS).edit();
+                editor.putInt("combo",combo);
+                editor.putLong("lastTime",time);
+                editor.commit();
+            }
+            if (combo > 1) {
+                if (app_2nd.length() > 0) {
+                    Intent intent = new Intent();
+
+                    intent = packageManager.getLaunchIntentForPackage(app_2nd);
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        Log.w("2nd2", "length>0 -> intent not null");
+                        startActivity(intent);
+                    }else{
+                        // Toast.makeText(SettingActivity.this,R.string.error_could_not_start,Toast.LENGTH_SHORT).show();
+
+                        intent=new Intent();
+                        intent.setAction(Intent.ACTION_MAIN);
+                        if(class_2nd.length()>5)
+                        {
+                            intent.setClassName(app_2nd,class_2nd);
+                        }
+                        try{
+                            startActivity(intent);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this,R.string.error_could_not_start,Toast.LENGTH_SHORT).show();
+                             intent = new Intent(MainActivity.this, SettingActivity.class);
+                            startActivity(intent);
+
+                        }
+                    }
+                } else {
+                    Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                    startActivity(intent);
+                }
+                return;
+            }
+        }
 
         if (app.length()>0 && app!=THIS_PACKAGE){
             switch (mode){

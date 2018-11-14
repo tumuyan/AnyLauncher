@@ -134,13 +134,6 @@ public class SelectOne  extends Activity {
 
 
 
-
-
-
-
-
-
-
     @Override
     protected void onPause(){
         super.onPause();
@@ -265,8 +258,15 @@ public class SelectOne  extends Activity {
                 return intent;
             }
 
+            case "2nd":
+            {
+                Intent intent = new Intent();
+               intent.setAction(Intent.ACTION_MAIN);
+                //     intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory("android.intent.category.HOME" );
+                return intent;
 
-
+            }
 
         }
 return null;

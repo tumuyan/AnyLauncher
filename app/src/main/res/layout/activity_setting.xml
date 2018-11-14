@@ -81,7 +81,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="256dp">
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="备用启动器"
+            android:textSize="20sp" />
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="?android:attr/textColorHint"
+            android:textSize="18sp"
+            tools:text="三击Home生效" />
+
+        <CheckBox
+            android:id="@+id/checkBox_2nd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0"
+        android:background="?android:attr/listDivider"
+        tools:layout_editor_absoluteX="253dp"
+        tools:layout_editor_absoluteY="87dp" />
+
+    <include
+        android:id="@+id/app_view_2nd"
+        layout="@layout/applist_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

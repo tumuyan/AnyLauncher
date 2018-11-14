@@ -74,25 +74,43 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PackageManager pm =getContext(). getPackageManager();
-                Intent intent = pm.getLaunchIntentForPackage(packageName);
-                if (intent != null) {
-                    SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
-                    editor.putString("app", packageName);
-                    editor.putString("label", Name);
-                    editor.putString("class",className);
-                    editor.putString("uri",uri);
-                    editor.putString("mode",mode);
-//                    editor.putString("_uri",uri);
-//                    editor.putString("_mode","");
-                    editor.commit();
-                 //   getContext().startActivity(intent);
-                    intent=new Intent(getContext() ,SettingActivity.class);
-                    getContext().startActivity(intent);
 
+                if(mode.equals("2nd")){
+                    SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
+                    editor.putString("app_2nd", packageName);
+                    editor.putString("label_2nd", Name);
+                    editor.putString("class_2nd",className);
+                    editor.commit();
+                    Intent intent=new Intent(getContext() ,SettingActivity.class);
+                    getContext().startActivity(intent);
                 }else{
-                    Toast.makeText(getContext(),R.string.error_could_not_start,Toast.LENGTH_SHORT).show();
+                    PackageManager pm =getContext(). getPackageManager();
+                    Intent intent = pm.getLaunchIntentForPackage(packageName);
+
+                    if (intent != null) {
+
+                        {
+                            SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
+                            editor.putString("app", packageName);
+                            editor.putString("label", Name);
+                            editor.putString("class",className);
+                            editor.putString("uri",uri);
+                            editor.putString("mode",mode);
+                            editor.commit();
+                        }
+
+                        //   getContext().startActivity(intent);
+                        intent=new Intent(getContext() ,SettingActivity.class);
+                        getContext().startActivity(intent);
+
+                    }else{
+                        Toast.makeText(getContext(),R.string.error_could_not_start,Toast.LENGTH_SHORT).show();
+                    }
+
                 }
+
+
+
             }
         });
 
