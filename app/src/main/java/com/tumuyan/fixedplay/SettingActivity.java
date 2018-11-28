@@ -2,35 +2,27 @@ package com.tumuyan.fixedplay;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tumuyan.fixedplay.App.ItemAdapter;
 import com.tumuyan.fixedplay.App.SelectOne;
 import com.tumuyan.fixedplay.Beta.SelectApp;
 
 public class SettingActivity extends Activity {
     PackageManager packageManager ;
-    final String THIS_PACKAGE="com.tumuyan.fixedplay";
+
     String mode="r2";
 
     String _mode="";
@@ -59,13 +51,11 @@ public class SettingActivity extends Activity {
             public void onClick(View view) {
                 final String[] items3 = new String[]{"优先从后台切换到前台", "重新打开应用Activity", "浏览网页", "打开地图","拨打电话","打开文件","高级模式","备用启动器"};//创建item
                 AlertDialog alertDialog3 = new AlertDialog.Builder(SettingActivity.this)
-                        .setTitle("选择任务模式")
+                      //  .setTitle("选择任务模式")
                      //   .setIcon(R.mipmap.ic_launcher)
                         .setItems(items3, new DialogInterface.OnClickListener() {//添加列表
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                               // Toast.makeText(SettingActivity.this, "工作模式：" + items3[i], Toast.LENGTH_SHORT).show();
-
                                  _mode="";
                                  _uri="";
                                  _action="";
@@ -111,8 +101,6 @@ public class SettingActivity extends Activity {
                                         startActivity(select);
                                         break;
 
-
-
                                 }
                             }
                         })
@@ -125,33 +113,26 @@ public class SettingActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                try{
-                    Intent intent=new Intent();
-                    intent.setClassName("com.android.settings",
-                            "com.android.settings.applications.DefaultAppSelectionActivity");
-                    intent.setAction("android.settings.HOME_SETTINGS");
-                    startActivity(intent);
-                }catch (Exception e){
+                Intent intent = new Intent();
+                intent.setClassName("com.android.settings",
+                        "com.android.settings.applications.DefaultAppSelectionActivity");
+                intent.setAction("android.settings.HOME_SETTINGS");
+
+                if (null != packageManager.resolveActivity(intent, 0)) {
+                    try {
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        Intent i = new Intent(Intent.ACTION_MAIN);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addCategory(Intent.CATEGORY_HOME);
+                        startActivity(i);
+                    }
+                } else {
                     Intent i = new Intent(Intent.ACTION_MAIN);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.addCategory(Intent.CATEGORY_HOME);
                     startActivity(i);
-                 //   Toast.makeText(SettingActivity.this,R.string.error_btn1,Toast.LENGTH_LONG).show();
                 }
-
-
-/*                    try
-                    {
-                         Intent intent=new Intent(Intent.ACTION_MAIN);
-                         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        ComponentName cn=new ComponentName("com.android.settings",
-                                "com.android.settings.applications.DefaultAppSelectionActivity");
-                        intent.setComponent(cn);
-                        startActivity(intent);
-                    }catch (Exception e){
-                     }*/
-
-
             }
         });
 
@@ -169,7 +150,6 @@ public class SettingActivity extends Activity {
         }
         final AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
         builder.setTitle(title).
-              //  setIcon(android.R.drawable.ic_dialog_info).
                 setView(inputServer).
                 setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -194,7 +174,6 @@ public class SettingActivity extends Activity {
                             select.putExtra("_uri",_uri);
                             startActivity(select);
                         }
-
                     }
                 }
         );
@@ -245,16 +224,7 @@ public class SettingActivity extends Activity {
             });
         }catch (Exception e){
             e.printStackTrace();
-            //icon=getResources().getDrawable(R.mipmap.ic_launcher);
         }
-
- /*        String className=read.getString("class","");
-        if(className.length()>0){
-           icon  =pm.getActivityIcon(ComponentName.createRelative(app,className));
-        }
-      */
-
-
 
 
     }
@@ -328,6 +298,23 @@ public class SettingActivity extends Activity {
             e.printStackTrace();
         }
 
+    }
+
+
+
+    private   boolean isPkgInstalled(String packageName) {
+        if(null==packageName)
+            return false;
+        if ( (packageName).length()<0)
+            return false;
+        android.content.pm.ApplicationInfo info;
+        try {
+            info = packageManager.getApplicationInfo(packageName, 0);
+            return null!=info;
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        return false;
     }
 
 

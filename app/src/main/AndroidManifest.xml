@@ -48,4 +48,4 @@
         </activity>
     </application>
 
-</manifest>        <!--    android:launchMode="singleInstance"-->
+</manifest>
