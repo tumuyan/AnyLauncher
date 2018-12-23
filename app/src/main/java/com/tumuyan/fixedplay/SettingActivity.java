@@ -49,7 +49,9 @@ public class SettingActivity extends Activity {
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String[] items3 = new String[]{"优先从后台切换到前台", "重新打开应用Activity", "浏览网页", "打开地图","拨打电话","打开文件","高级模式","备用启动器"};//创建item
+
+                final String[] items3 = getResources().getStringArray( R.array.mode_main);
+//                final String[] items3 = new String[]{"优先从后台切换到前台", "重新打开应用Activity", "浏览网页", "打开地图","拨打电话","打开文件","特定Activity","快捷方式","备用启动器"};//创建item
                 AlertDialog alertDialog3 = new AlertDialog.Builder(SettingActivity.this)
                       //  .setTitle("选择任务模式")
                      //   .setIcon(R.mipmap.ic_launcher)
@@ -76,28 +78,33 @@ public class SettingActivity extends Activity {
 
                                     case 2:
                                         _mode="uri";
-                                        inputUri("网址链接","http://m.baidu.com","");
+                                        inputUri(getString(R.string.title_hint_url),"http://m.baidu.com","");
                                         break;
                                     case 3:
                                         _mode="uri";
-                                        inputUri("地图坐标","geo:38.899533,-77.036476","geo:");
+                                        inputUri(getString(R.string.title_hint_geo),"geo:38.899533,-77.036476","geo:");
                                             break;
                                     case 4:
                                         //    _mode="uri";
                                      _mode="uri_dail";
-                                        inputUri("电话号码","tel:10086","tel:");
+                                        inputUri(getString(R.string.title_hint_tel),"tel:10086","tel:");
                                         break;
 
                                     case 5:
                                         _mode="uri_file";
-                                        inputUri("文件路径","/sdcard/logs.txt","");
+                                        inputUri(getString(R.string.title_hint_file),"/sdcard/logs.txt","");
                                         break;
                                     case 6:
                                         Intent i6=new Intent(SettingActivity.this,SelectApp.class);
                                         startActivity(i6);
                                         break;
-                                    case 7:
+                                    case 8:
                                         select.putExtra("_mode","2nd");
+                                        startActivity(select);
+                                        break;
+                                    case 7:
+                                        _mode="short_cut";
+                                        select.putExtra("_mode",_mode);
                                         startActivity(select);
                                         break;
 
@@ -151,13 +158,13 @@ public class SettingActivity extends Activity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
         builder.setTitle(title).
                 setView(inputServer).
-                setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         _uri = inputServer.getText().toString().toLowerCase();
                         Log.w("_uri",_uri);

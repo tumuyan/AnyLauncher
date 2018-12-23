@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +42,7 @@ public class mixAdapter extends ArrayAdapter<Item> {
         this.uri = uri;
     }
 
-    @NonNull
+   // @NonNull
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
@@ -73,39 +71,11 @@ public class mixAdapter extends ArrayAdapter<Item> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-          //      Log.w("mixadapter","setOnItemDeleteClickListener");
-
                 mOnItemDeleteListener.onDeleteClick(position);
             }
         });
 
- /*       view.setOnClickListener(myClickListener);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PackageManager pm =getContext(). getPackageManager();
-                Intent intent = pm.getLaunchIntentForPackage(packageName);
-                if (intent != null) {
-                    SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
-                    editor.putString("app", packageName);
-                    editor.putString("label", Name);
-                    editor.putString("class",className);
-                    editor.putString("uri",uri);
-                    editor.putString("mode",mode);
-//                    editor.putString("_uri",uri);
-//                    editor.putString("_mode","");
-                    editor.commit();
-                 //   getContext().startActivity(intent);
-                    intent=new Intent(getContext() ,SettingActivity.class);
-                    getContext().startActivity(intent);
-
-                }else{
-                    Toast.makeText(getContext(),R.string.error_could_not_start,Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-*/
 
         return view;
     }

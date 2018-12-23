@@ -154,7 +154,8 @@ public class MainActivity extends Activity {
                         startActivity(intent);
                     }catch (Exception e){
                         e.printStackTrace();
-                        Toast.makeText(this,"模式"+mode + "启动应用时发生了错误",Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(this,getString(R.string.toast_main_start_error,mode)"模式"+mode + "启动应用时发生了错误",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,getString(R.string.toast_main_start_error,mode),Toast.LENGTH_SHORT).show();
                          intent=new Intent(MainActivity.this,SettingActivity.class);
                         startActivity(intent);
 

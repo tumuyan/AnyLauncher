@@ -12,4 +12,30 @@
     <string name="error_could_not_start">此应用可能无法设置为Launcher</string>
     <string name="error_btn1">这个功能看可能并没什么卵用，\n还是手动在系统里设置吧\n有解决问题的demo请联系我</string>
     <string name="search">搜索</string>
+
+    <string name="toast_main_start_error">模式%1$s启动应用时发生了错误"</string>
+
+    <string-array name="mode_main">
+        <item>优先从后台切换到前台</item>
+        <item>重新打开应用Activity</item>
+        <item>浏览网页</item>
+        <item>打开地图</item>
+        <item>拨打电话</item>
+        <item>打开文件</item>
+        <item>特定Activity</item>
+        <item>快捷方式</item>
+        <item>备用启动器</item>
+    </string-array>
+
+    <string name="title_hint_url">网址链接</string>
+    <string name="title_hint_geo">地图坐标</string>
+    <string name="title_hint_tel">电话号码</string>
+    <string name="title_hint_file">文件路径</string>
+
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+
+    <string name="launcher2">备用启动器</string>
+
+
 </resources>

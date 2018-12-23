@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AnyLauncher</string>
-    <string name="about_main" >You can choose any application and set it as the Launcher.</string>
+    <string name="about_main" >You can choose any application and set it as a Launcher.</string>
     <string name="about_author">By tumuyan,\nin 2018.11</string>
     <string name="title_mode">Select Mode</string>
     <string name="title_selected">Selected App</string>
@@ -13,4 +13,26 @@
 
     <string name="error_btn1">This button may be not working.\nYou should manual find the Launcher Selecter from the System Setting </string>
     <string name="search">Search</string>
+    <string name="toast_main_start_error">mode %1$s: Error onStart()"</string>
+
+    <string-array name="mode_main">
+        <item>Callback from background</item>
+        <item>Restart Activity</item>
+        <item>Open Url</item>
+        <item>Open Map</item>
+        <item>Phone Call</item>
+        <item>Open File</item>
+        <item>Activity</item>
+        <item>Shortcut</item>
+        <item>2nd Launcher</item>
+    </string-array>
+
+    <string name="title_hint_url">Http Url</string>
+    <string name="title_hint_geo">Longitude and latitude</string>
+    <string name="title_hint_tel">Telephone number</string>
+    <string name="title_hint_file">File path</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="launcher2">2nd Launcher</string>
 </resources>

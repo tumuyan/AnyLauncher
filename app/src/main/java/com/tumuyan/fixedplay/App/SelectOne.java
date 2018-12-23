@@ -267,6 +267,12 @@ public class SelectOne  extends Activity {
                 return intent;
 
             }
+            case "short_cut":
+            {
+               Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
+
+                return shortcutsIntent;
+            }
 
         }
 return null;

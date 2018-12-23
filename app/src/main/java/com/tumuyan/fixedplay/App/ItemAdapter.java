@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
+//import android.database.sqlite.SQLiteDatabase;
+//import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +46,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         this.uri = uri;
     }
 
-    @NonNull
+  //  @NonNull
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         final Item item = getItem(position);
