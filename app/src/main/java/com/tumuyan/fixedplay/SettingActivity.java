@@ -125,16 +125,36 @@ public class SettingActivity extends Activity {
                         "com.android.settings.applications.DefaultAppSelectionActivity");
                 intent.setAction("android.settings.HOME_SETTINGS");
 
+                if(null==packageManager.resolveActivity(intent, 0)){
+                    intent.setClassName("com.android.settings",
+                            "com.android.settings.Settings$AdvancedAppsActivity");
+                    Log.w("button1","DefaultHomeSettings");
+                }
+
+
+/*                if(null==packageManager.resolveActivity(intent, 0)){
+                    intent = new Intent("com.miui.settings.HOME_SETTINGS_MIUI");
+                    intent.setClassName("com.android.settings",
+                            "com.android.settings.applications.DefaultHomeSettings");
+//                    intent.setAction("com.miui.settings.HOME_SETTINGS_MIUI");
+//                    miui.permission.USE_INTERNAL_GENERAL_API
+
+                    Log.w("button1","DefaultHomeSettings");
+                }*/
+
                 if (null != packageManager.resolveActivity(intent, 0)) {
                     try {
                         startActivity(intent);
                     } catch (Exception e) {
+                        Log.w("button1","creash");
+                        e.printStackTrace();
                         Intent i = new Intent(Intent.ACTION_MAIN);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         i.addCategory(Intent.CATEGORY_HOME);
                         startActivity(i);
                     }
                 } else {
+                    Log.w("button1","not find");
                     Intent i = new Intent(Intent.ACTION_MAIN);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.addCategory(Intent.CATEGORY_HOME);
