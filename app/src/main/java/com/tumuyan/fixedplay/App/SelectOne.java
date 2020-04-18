@@ -62,7 +62,7 @@ public class SelectOne  extends Activity {
          _mode=intent.getStringExtra("_mode");
          _action=intent.getStringExtra("_action");
          _uri=intent.getStringExtra("_uri");
-         defaultIcon=getResources().getDrawable(R.drawable.ic_info_black_24dp);
+         defaultIcon=getResources().getDrawable(R.drawable.unknow);
 
         new Thread(new Runnable() {
             @Override

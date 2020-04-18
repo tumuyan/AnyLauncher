@@ -33,13 +33,15 @@
             android:hint="App label/Package/Activity."
             android:inputType="textPersonName" />
 
+
         <Button
             android:id="@+id/button_filter"
-            android:layout_width="36dp"
+            android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0"
-            android:background="@drawable/ic_search_24dp" />
+            android:background="#00FFFFFF"
+            android:text="@string/search" />
     </LinearLayout>
 
     <ListView

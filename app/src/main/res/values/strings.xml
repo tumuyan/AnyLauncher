@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">AnyLauncher</string>
     <string name="about_main" >You can choose any application and set it as a Launcher.</string>
-    <string name="about_author">By tumuyan,\nin 2018.11</string>
+    <string name="about_author">By tumuyan,\n2018.11 to 2020.04</string>
     <string name="title_mode">Select Mode</string>
     <string name="title_selected">Selected App</string>
     <string name="item_r2">Switch application</string>
@@ -35,4 +35,5 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="launcher2">2nd Launcher</string>
+
 </resources>

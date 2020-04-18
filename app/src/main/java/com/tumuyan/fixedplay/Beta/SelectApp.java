@@ -69,7 +69,7 @@ public class SelectApp extends Activity {
         listviewActivity=(ListView)findViewById(R.id.listview_acitivity);
         listviewActivity.setVisibility(View.GONE);
 
-        defaultIcon=getResources().getDrawable(R.drawable.ic_info_black_24dp);
+        defaultIcon=getResources().getDrawable(R.drawable.unknow);
 
         itemAdapter = new mixAdapter(SelectApp.this, R.layout.applist_item, list);
         itemAdapter.setMode(_mode);
