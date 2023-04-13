@@ -6,10 +6,17 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 
@@ -17,28 +24,67 @@ public class MainActivity extends Activity {
 
     PackageManager packageManager;
     final String THIS_PACKAGE = "com.tumuyan.fixedplay";
+    long splash_time = 0;
     String mode = "r2", action = "";
+    ImageView imgview = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         packageManager = getPackageManager();
         Log.w("MainActivity", "Create");
+
+        SharedPreferences read = getSharedPreferences("setting", MODE_MULTI_PROCESS);
+        final String splash_img = read.getString("splash_img", "");
+
+        splash_time = read.getInt("splash_time", 0);
+
+        Log.w("MainActivity", "Create, splash_time = " + splash_time);
+//        if (System.currentTimeMillis() - SystemClock.elapsedRealtime() >60000 ){
+//            splash_time =0;
+//        }
+        if (splash_time > 0) {
+            handler.sendEmptyMessageDelayed(GO, splash_time);
+            setContentView(R.layout.splash_activity);
+            imgview = findViewById(R.id.splash_img);
+            imgview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    skip_splash();
+                }
+            });
+            Glide.with(this)
+                    .load(splash_img)
+                    .placeholder(R.drawable.ic_baseline_hourglass_top_24)
+//                    .asGif()
+                    .into(imgview);
+        }
+
         super.onCreate(savedInstanceState);
+    }
+
+    private void skip_splash() {
+        if (imgview != null) {
+            handler.removeMessages(GO);
+            splash_time = 0;
+            imgview.setImageDrawable(null);
+            go();
+        }
     }
 
     @Override
     public void onStart() {
         Log.w("MainActivity", "Start");
-        //    go();
         super.onStart();
     }
 
     @Override
     public void onResume() {
-        Log.w("MainActivity", "Resume");
-        go();
+        Log.w("MainActivity", String.format("Resume, splash %d", splash_time));
+        if (splash_time <= 0)
+            go();
         super.onResume();
     }
+
 
     public void go() {
         SharedPreferences read = getSharedPreferences("setting", MODE_MULTI_PROCESS);
@@ -47,7 +93,7 @@ public class MainActivity extends Activity {
         String uri = read.getString("uri", "");
         mode = read.getString("mode", "r2");
         action = read.getString("action", "");
-        Log.i("MainActivity.go()", "mode="+mode + ", packagename=" + app);
+        Log.i("MainActivity.go()", "mode=" + mode + ", packagename=" + app);
 
         boolean apply2nd = read.getBoolean("apply2nd", false);
         long lastTime = read.getLong("lastTime", 0);
@@ -225,16 +271,32 @@ public class MainActivity extends Activity {
         }
     }
 
-    //禁止使用返回键返回到上一页,但是可以直接退出程序
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            // moveTaskToBack(true);
+            //禁止使用返回键返回到上一页,但是可以直接退出程序
             return true;//不执行父类点击事件
+        } else if (keyCode == KeyEvent.KEYCODE_ENTER) {
+//            跳过
+            skip_splash();
+            return true;
         }
         return super.onKeyDown(keyCode, event);//继续执行父类其他点击事件
     }
 
+    private static final int GO = 1;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case GO:
+                    go();
+                    splash_time = 0;
+                    break;
+            }
+        }
+    };
 }
 
 

@@ -21,28 +21,52 @@
         <Button
             android:id="@+id/button1"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="3dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/bg_buttom_border_only"
             android:focusable="true"
+            android:nextFocusLeft="@id/button3"
+            android:nextFocusRight="@id/button2"
+            android:nextFocusDown="@id/cbx_2nd_launcher"
             android:padding="0dp"
             android:text="@string/btn_1" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="3dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/bg_buttom_border_only"
             android:focusable="true"
+            android:nextFocusLeft="@id/button1"
+            android:nextFocusRight="@id/button3"
+            android:nextFocusDown="@id/cbx_2nd_launcher"
             android:padding="0dp"
             android:text="@string/btn_2" />
+
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_buttom_border_only"
+            android:focusable="true"
+            android:nextFocusLeft="@id/button2"
+            android:nextFocusRight="@id/button1"
+            android:nextFocusDown="@id/cbx_2nd_launcher"
+            android:padding="0dp"
+            android:text="@string/btn_3" />
+
 
     </LinearLayout>
 
@@ -131,6 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:focusable="true"
+            android:nextFocusDown="@+id/app_view_2nd"
             android:text="" />
 
     </LinearLayout>
@@ -149,16 +174,12 @@
         layout="@layout/applist_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true" />
+        android:focusable="true"
+        android:nextFocusUp="@+id/cbx_2nd_launcher"
+        android:nextFocusDown="@+id/button1"
+        />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="0"
-        android:background="?android:attr/listDivider"
-        android:focusable="false"
-        tools:layout_editor_absoluteX="253dp"
-        tools:layout_editor_absoluteY="87dp" />
+<!--    说明-->
 
     <TextView
         android:id="@+id/textView5"

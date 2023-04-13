@@ -7,7 +7,7 @@
     <string name="title_selected">Selected App</string>
     <string name="item_r2">Switch application</string>
     <string name="item_r1">Open default Activity</string>
-    <string name="btn_1">Set Launcher</string>
+    <string name="btn_1">Launcher</string>
     <string name="btn_2">Select App</string>
     <string name="error_could_not_start">Not supported application.</string>
 
@@ -27,6 +27,11 @@
         <item>2nd Launcher</item>
     </string-array>
 
+    <string-array name="menu_delay">
+        <item>Delay time (ms)</item>
+        <item>Image url/path</item>
+    </string-array>
+
     <string name="title_hint_url">Http Url</string>
     <string name="title_hint_geo">Longitude and latitude</string>
     <string name="title_hint_tel">Telephone number</string>
@@ -35,5 +40,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="launcher2">2nd Launcher</string>
+    <string name="btn_3">Delay</string>
+    <string name="delay_desc">Delay when launching a app with Anylauncher for the first time after booting</string>
 
 </resources>
