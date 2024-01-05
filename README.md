@@ -12,3 +12,8 @@ You can choose any Android application and set it as a Launcher.
 
 目前无法保证能跳转到系统默认Launcher选择器的界面，百度到的方法似乎都不怎么好用。如果有简单的demo请联系我
 
+
+## Build Environment
+* Android Gradle Plugin 3.2.1
+* Gradle 4.6
+* Oracle OpenJDK 1.8
