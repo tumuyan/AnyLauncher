@@ -13,6 +13,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center_vertical"
+        android:focusable="false"
         tools:src="@mipmap/ic_launcher_round" />
 
     <LinearLayout
@@ -21,6 +22,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:layout_weight="1"
+        android:focusable="false"
         android:orientation="vertical">
 
         <TextView
@@ -29,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:focusable="false"
             android:textSize="16sp"
             tools:text="@string/app_name" />
 
@@ -37,10 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
+            android:focusable="false"
             android:textColor="?android:attr/textColorHint"
             tools:text="packageName\nActivity.Name" />
     </LinearLayout>
 
+<!--
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
@@ -48,5 +53,6 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="0"
         android:visibility="gone" />
+-->
 
 </LinearLayout>

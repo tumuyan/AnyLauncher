@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,43 +34,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SelectOne  extends Activity {
+public class SelectOne extends Activity {
     // Adapter显示项目（筛选后
     private List<Item> list = new ArrayList<>();
     // 原始搜索结果
-    private List<Item>  listOrgin=new ArrayList<>();
+    private List<Item> listOrgin = new ArrayList<>();
 
     private ListView listView;
     private ProgressBar progressBar;
-    private String _mode,_action,_uri;
+    private String _mode, _action, _uri;
 
     private View SearchBox;
     private EditText SearchText;
     private Button SearchButton;
-     ItemAdapter itemAdapter;
-     private Drawable defaultIcon;
+    ItemAdapter itemAdapter;
+    private Drawable defaultIcon;
+    private int cursorPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.applist_activity);
-        progressBar=(ProgressBar)findViewById(R.id.progressBar);
-        SearchBox=(View)findViewById(R.id.searchBox);
-        SearchButton=(Button)findViewById(R.id.button_filter);
-        SearchText=(EditText) findViewById(R.id.editText_filter);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        SearchBox = (View) findViewById(R.id.searchBox);
+        SearchButton = (Button) findViewById(R.id.button_filter);
+        SearchText = (EditText) findViewById(R.id.editText_filter);
         SearchBox.setVisibility(View.GONE);
-        Intent intent=getIntent();
-         _mode=intent.getStringExtra("_mode");
-         _action=intent.getStringExtra("_action");
-         _uri=intent.getStringExtra("_uri");
-         defaultIcon=getResources().getDrawable(R.drawable.unknow);
+        Intent intent = getIntent();
+        _mode = intent.getStringExtra("_mode");
+        _action = intent.getStringExtra("_action");
+        _uri = intent.getStringExtra("_uri");
+        defaultIcon = getResources().getDrawable(R.drawable.unknow);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 //      getAppList();
-              loadAllApps( makeIntent());
-              list.addAll(listOrgin);
+                loadAllApps(makeIntent());
+                list.addAll(listOrgin);
 
                 itemAdapter = new ItemAdapter(SelectOne.this, R.layout.applist_item, list);
                 itemAdapter.setMode(_mode);
@@ -82,8 +84,54 @@ public class SelectOne  extends Activity {
                         if (listView == null) Log.e("listitem", "null");
                         listView.setAdapter(itemAdapter);
                         progressBar.setVisibility(View.GONE);
-                        SearchBox.setVisibility(View.VISIBLE);
-                        }
+//                        SearchBox.setVisibility(View.VISIBLE);
+
+                        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                cursorPosition = i;
+                                Log.i("App SelectorOne", "onItemSelected, cursorPosition = " + cursorPosition);
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+                                cursorPosition = -1;
+                            }
+                        });
+/*
+                        listView.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                                int keycode = keyEvent.getKeyCode();
+                                if (keyEvent.getAction() == 1 && (keycode == KeyEvent.KEYCODE_ENTER || keycode == KeyEvent.KEYCODE_NUMPAD_ENTER || keycode == KeyEvent.KEYCODE_DPAD_CENTER)) {
+                                    Log.i("App SelectorOne", "Keycode = " + keycode + ", cursorPosition = " + cursorPosition);
+
+                                }
+                                return false;
+                            }
+                        });
+*/
+
+                        listView.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+
+                                    if (event.getAction() == 1 && (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER)) {
+                                        Log.i("App SelectorOne", "Keycode = " + keyCode + ", cursorPosition = " + cursorPosition);
+
+                                        int selectedItemPosition = listView.getSelectedItemPosition();
+                                        Item item = list.get(selectedItemPosition);
+                                        itemAdapter.select(item.getName(), item.getPackageName(), item.getClassName() );
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            }
+                        });
+
+                    }
 
                 });
 
@@ -95,6 +143,21 @@ public class SelectOne  extends Activity {
             @Override
             public void onClick(View view) {
                 doSearch(SearchText.getText().toString());
+            }
+        });
+
+        SearchBox.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                int keycode = keyEvent.getKeyCode();
+                if (keyEvent.getAction() == 1 && (keycode == KeyEvent.KEYCODE_ENTER || keycode == KeyEvent.KEYCODE_NUMPAD_ENTER || keycode == KeyEvent.KEYCODE_DPAD_CENTER)) {
+                    String text = SearchText.getText().toString();
+                    Log.i("SelectOne", text);
+                    doSearch(text);
+                    listView.requestFocus();
+                    return true;
+                }
+                return false;
             }
         });
     }
@@ -117,28 +180,27 @@ public class SelectOne  extends Activity {
 //
 //            }
 
-            private void doSearch (String  str){
-                list.clear();
-                for(int i=0;i<listOrgin.size();i++){
-                    Item item=listOrgin.get(i);
-                     if(item.getClassName().contains(str) ||
-                            item.getPackageName().contains(str)||
-                            item.getName().contains(str)){
-                        list.add(item);
-                    }
-                }
-                Log.w("search", str+" get"+list.size());
-                itemAdapter.notifyDataSetChanged();
-
+    private void doSearch(String str) {
+        list.clear();
+        for (int i = 0; i < listOrgin.size(); i++) {
+            Item item = listOrgin.get(i);
+            if (item.getClassName().contains(str) ||
+                    item.getPackageName().contains(str) ||
+                    item.getName().contains(str)) {
+                list.add(item);
             }
-
+        }
+        Log.w("search", str + " get" + list.size());
+        itemAdapter.notifyDataSetChanged();
+    }
 
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         this.finish();
     }
+
     // 停用的旧方法
     private void getAppList() {
         PackageManager pm = getPackageManager();
@@ -184,10 +246,9 @@ public class SelectOne  extends Activity {
         PackageManager pm = getPackageManager();
 
 
-
-        for(ResolveInfo r:mApps){
-            Drawable ic=r.loadIcon((pm));
-            if(ic==null) ic=defaultIcon;
+        for (ResolveInfo r : mApps) {
+            Drawable ic = r.loadIcon((pm));
+            if (ic == null) ic = defaultIcon;
 
             Item item = new Item(
                     r.loadLabel(pm).toString(),
@@ -200,7 +261,7 @@ public class SelectOne  extends Activity {
 
     }
 
-// 唯一在用的新方法
+    // 唯一在用的新方法
     private void loadAllApps(Intent intent) {
         List<ResolveInfo> mApps;
         mApps = new ArrayList<>();
@@ -209,8 +270,8 @@ public class SelectOne  extends Activity {
 
             PackageManager pm = getPackageManager();
             for (ResolveInfo r : mApps) {
-                Drawable ic=r.loadIcon((pm));
-                if(ic==null) ic=defaultIcon;
+                Drawable ic = r.loadIcon((pm));
+                if (ic == null) ic = defaultIcon;
 
                 Item item = new Item(
                         r.loadLabel(pm).toString(),
@@ -220,37 +281,35 @@ public class SelectOne  extends Activity {
                 );
                 listOrgin.add(item);
             }
-            Log.w("load",""+listOrgin.size());
-        }catch (Exception e){
+            Log.w("load", "" + listOrgin.size());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private Intent makeIntent(){
+    private Intent makeIntent() {
 
-        switch (_mode){
+        switch (_mode) {
             case "r2":
             case "r1":
                 Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
                 mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
                 return mainIntent;
-            case "uri":
-            {
+            case "uri": {
                 Uri uri = Uri.parse(_uri);
-                Intent it  = new Intent(Intent.ACTION_VIEW,uri);
+                Intent it = new Intent(Intent.ACTION_VIEW, uri);
                 return it;
             }
 
-            case "uri_dail":
-            {
+            case "uri_dail": {
                 Uri uri = Uri.parse(_uri);
                 Intent it = new Intent(Intent.ACTION_DIAL, uri);
                 return it;
             }
 
-            case "uri_file":
-            {  File f=(new File(_uri));
+            case "uri_file": {
+                File f = (new File(_uri));
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -258,27 +317,24 @@ public class SelectOne  extends Activity {
                 return intent;
             }
 
-            case "2nd":
-            {
+            case "2nd": {
                 Intent intent = new Intent();
-               intent.setAction(Intent.ACTION_MAIN);
+                intent.setAction(Intent.ACTION_MAIN);
                 //     intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory("android.intent.category.HOME" );
+                intent.addCategory("android.intent.category.HOME");
                 return intent;
 
             }
-            case "short_cut":
-            {
-               Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
+            case "short_cut": {
+                Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
 
                 return shortcutsIntent;
             }
 
         }
-return null;
+        return null;
 
     }
-
 
 
 }
