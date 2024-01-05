@@ -51,21 +51,21 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     public View getView(final int position, View convertView, final ViewGroup parent) {
         final Item item = getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(layoutId, parent, false);
-        final String packageName=item.getPackageName();
-        final String className=item.getClassName();
-        final String Name=item.getName();
+        final String packageName = item.getPackageName();
+        final String className = item.getClassName();
+        final String Name = item.getName();
 
-        String  _class, _package, _name;
-        if(className.length()<1) {
-            _name=Name;
-            _package=packageName;
-        }else    if(className.contains(packageName)){
-            _class=className.replace(packageName,"");
-            _package=packageName;
-            _name=Name+"("+_class+")";
-        }else {
-            _name=Name;
-            _package=packageName+"\n"+className;
+        String _class, _package, _name;
+        if (className.length() < 1) {
+            _name = Name;
+            _package = packageName;
+        } else if (className.contains(packageName)) {
+            _class = className.replace(packageName, "");
+            _package = packageName;
+            _name = Name + "(" + _class + ")";
+        } else {
+            _name = Name;
+            _package = packageName + "\n" + className;
         }
 
         ((ImageView) view.findViewById(R.id.item_img)).setImageDrawable(item.getAppIcon());
@@ -74,47 +74,51 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(mode.equals("2nd")){
-                    SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
-                    editor.putString("app_2nd", packageName);
-                    editor.putString("label_2nd", Name);
-                    editor.putString("class_2nd",className);
-                    editor.commit();
-                    Intent intent=new Intent(getContext() ,SettingActivity.class);
-                    getContext().startActivity(intent);
-                }else{
-                    PackageManager pm =getContext(). getPackageManager();
-                    Intent intent = pm.getLaunchIntentForPackage(packageName);
-
-                    if (intent != null) {
-
-                        {
-                            SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
-                            editor.putString("app", packageName);
-                            editor.putString("label", Name);
-                            editor.putString("class",className);
-                            editor.putString("uri",uri);
-                            editor.putString("mode",mode);
-                            editor.commit();
-                        }
-
-                        //   getContext().startActivity(intent);
-                        intent=new Intent(getContext() ,SettingActivity.class);
-                        getContext().startActivity(intent);
-
-                    }else{
-                        Toast.makeText(getContext(),R.string.error_could_not_start,Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-
-
+                select(Name,packageName,className);
             }
         });
-
         return view;
+    }
+
+
+
+    public void select(String Name, String packageName, String className){
+
+        if(mode.equals("2nd")){
+            SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
+            editor.putString("app_2nd", packageName);
+            editor.putString("label_2nd", Name);
+            editor.putString("class_2nd",className);
+            editor.commit();
+            Intent intent=new Intent(getContext() ,SettingActivity.class);
+            getContext().startActivity(intent);
+        }else{
+            PackageManager pm =getContext(). getPackageManager();
+            Intent intent = pm.getLaunchIntentForPackage(packageName);
+
+            if (intent != null) {
+
+                {
+                    SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
+                    editor.putString("app", packageName);
+                    editor.putString("label", Name);
+                    editor.putString("class",className);
+                    editor.putString("uri",uri);
+                    editor.putString("mode",mode);
+                    editor.commit();
+                }
+
+                //   getContext().startActivity(intent);
+                intent=new Intent(getContext() ,SettingActivity.class);
+                getContext().startActivity(intent);
+
+            }else{
+                Toast.makeText(getContext(),R.string.error_could_not_start,Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+
     }
 
 

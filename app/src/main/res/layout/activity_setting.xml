@@ -15,72 +15,6 @@
         android:layout_height="wrap_content"
         android:focusable="false"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_buttom_border_only"
-            android:focusable="true"
-            android:nextFocusLeft="@id/button3"
-            android:nextFocusRight="@id/button2"
-            android:nextFocusDown="@id/cbx_2nd_launcher"
-            android:padding="0dp"
-            android:text="@string/btn_1" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_buttom_border_only"
-            android:focusable="true"
-            android:nextFocusLeft="@id/button1"
-            android:nextFocusRight="@id/button3"
-            android:nextFocusDown="@id/cbx_2nd_launcher"
-            android:padding="0dp"
-            android:text="@string/btn_2" />
-
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_buttom_border_only"
-            android:focusable="true"
-            android:nextFocusLeft="@id/button2"
-            android:nextFocusRight="@id/button1"
-            android:nextFocusDown="@id/cbx_2nd_launcher"
-            android:padding="0dp"
-            android:text="@string/btn_3" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        android:focusable="false" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        android:orientation="horizontal"
         tools:layout_editor_absoluteX="256dp">
 
         <TextView
@@ -147,7 +81,7 @@
             android:singleLine="true"
             android:textColor="?android:attr/textColorHint"
             android:textSize="18sp"
-            tools:text="三击Home生效" />
+            tools:text="@string/home" />
 
         <CheckBox
             android:id="@+id/cbx_2nd_launcher"
@@ -180,6 +114,72 @@
         />
 
 <!--    说明-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:focusable="false" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_buttom_border_only"
+            android:focusable="true"
+            android:nextFocusLeft="@id/button3"
+            android:nextFocusRight="@id/button2"
+            android:nextFocusDown="@id/cbx_2nd_launcher"
+            android:padding="0dp"
+            android:text="@string/btn_1" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_buttom_border_only"
+            android:focusable="true"
+            android:nextFocusLeft="@id/button1"
+            android:nextFocusRight="@id/button3"
+            android:nextFocusDown="@id/cbx_2nd_launcher"
+            android:padding="0dp"
+            android:text="@string/btn_2" />
+
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_buttom_border_only"
+            android:focusable="true"
+            android:nextFocusLeft="@id/button2"
+            android:nextFocusRight="@id/button1"
+            android:nextFocusDown="@id/cbx_2nd_launcher"
+            android:padding="0dp"
+            android:text="@string/btn_3" />
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView5"

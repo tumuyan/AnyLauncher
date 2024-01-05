@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">AnyLauncher</string>
     <string name="about_main">设置任意应用为启动器</string>
-    <string name="about_author">By tumuyan,\n2018.11 - 2023.04</string>
     <string name="title_mode">选择启动模式</string>
     <string name="title_selected">当前选中应用</string>
     <string name="item_r2">切换后台应用</string>
@@ -43,6 +42,7 @@
     <string name="launcher2">备用启动器</string>
     <string name="btn_3">延迟启动</string>
     <string name="delay_desc">延迟（开机后第一次用Anylauncher启动应用时，做延时处理）</string>
+    <string name="home">三击Home生效</string>
 
 
 </resources>
