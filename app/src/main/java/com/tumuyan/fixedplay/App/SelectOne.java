@@ -49,7 +49,6 @@ public class SelectOne extends Activity {
     private Button SearchButton;
     ItemAdapter itemAdapter;
     private Drawable defaultIcon;
-    private int cursorPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,44 +83,19 @@ public class SelectOne extends Activity {
                         if (listView == null) Log.e("listitem", "null");
                         listView.setAdapter(itemAdapter);
                         progressBar.setVisibility(View.GONE);
-//                        SearchBox.setVisibility(View.VISIBLE);
+                        SearchBox.setVisibility(View.VISIBLE);
 
-                        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                cursorPosition = i;
-                                Log.i("App SelectorOne", "onItemSelected, cursorPosition = " + cursorPosition);
-
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-                                cursorPosition = -1;
-                            }
-                        });
-/*
-                        listView.setOnKeyListener(new View.OnKeyListener() {
-                            @Override
-                            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                                int keycode = keyEvent.getKeyCode();
-                                if (keyEvent.getAction() == 1 && (keycode == KeyEvent.KEYCODE_ENTER || keycode == KeyEvent.KEYCODE_NUMPAD_ENTER || keycode == KeyEvent.KEYCODE_DPAD_CENTER)) {
-                                    Log.i("App SelectorOne", "Keycode = " + keycode + ", cursorPosition = " + cursorPosition);
-
-                                }
-                                return false;
-                            }
-                        });
-*/
 
                         listView.setOnKeyListener(new View.OnKeyListener() {
                             @Override
                             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                                if (event.getAction() == KeyEvent.ACTION_UP)
+                                {
 
-                                    if (event.getAction() == 1 && (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER)) {
-                                        Log.i("App SelectorOne", "Keycode = " + keyCode + ", cursorPosition = " + cursorPosition);
+                                    if ( keyCode == KeyEvent.KEYCODE_SPACE || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
 
                                         int selectedItemPosition = listView.getSelectedItemPosition();
+                                        Log.i("App SelectorOne", "Keycode = " + keyCode + ", cursorPosition = " + selectedItemPosition);
                                         Item item = list.get(selectedItemPosition);
                                         itemAdapter.select(item.getName(), item.getPackageName(), item.getClassName() );
                                         return true;
@@ -150,11 +124,11 @@ public class SelectOne extends Activity {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 int keycode = keyEvent.getKeyCode();
-                if (keyEvent.getAction() == 1 && (keycode == KeyEvent.KEYCODE_ENTER || keycode == KeyEvent.KEYCODE_NUMPAD_ENTER || keycode == KeyEvent.KEYCODE_DPAD_CENTER)) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_UP && (keycode == KeyEvent.KEYCODE_ENTER || keycode == KeyEvent.KEYCODE_NUMPAD_ENTER || keycode == KeyEvent.KEYCODE_DPAD_CENTER)) {
                     String text = SearchText.getText().toString();
                     Log.i("SelectOne", text);
                     doSearch(text);
-                    listView.requestFocus();
+//                    listView.requestFocus();
                     return true;
                 }
                 return false;

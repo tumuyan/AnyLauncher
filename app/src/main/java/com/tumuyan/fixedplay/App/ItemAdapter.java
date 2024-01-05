@@ -80,7 +80,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             }
         });
 
-
+/*
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
@@ -94,7 +94,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
                 }
                 return false;
             }
-        });
+        });*/
 
         return view;
     }
