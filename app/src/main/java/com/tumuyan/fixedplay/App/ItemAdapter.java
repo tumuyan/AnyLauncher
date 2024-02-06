@@ -1,11 +1,12 @@
 
 package com.tumuyan.fixedplay.App;
+
+import static android.content.Context.MODE_MULTI_PROCESS;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-//import android.database.sqlite.SQLiteDatabase;
-//import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,6 @@ import com.tumuyan.fixedplay.R;
 import com.tumuyan.fixedplay.SettingActivity;
 
 import java.util.List;
-
-import static android.content.Context.MODE_MULTI_PROCESS;
 
 
 /**
@@ -46,11 +45,27 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         this.uri = uri;
     }
 
+    private static class ViewHolder {
+        public ViewHolder(View viewRoot) {
+            item_img = (ImageView) viewRoot.findViewById(R.id.item_img);
+            item_text = (TextView) viewRoot.findViewById(R.id.item_text);
+            item_packageName = (TextView) viewRoot.findViewById(R.id.item_packageName);
+        }
+
+        ImageView item_img;
+        TextView item_text;
+        TextView item_packageName;
+    }
+
   //  @NonNull
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         final Item item = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(layoutId, parent, false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(layoutId, parent, false);
+            ViewHolder holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        }
         final String packageName = item.getPackageName();
         final String className = item.getClassName();
         final String Name = item.getName();
@@ -68,16 +83,18 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             _package = packageName + "\n" + className;
         }
 
-        ((ImageView) view.findViewById(R.id.item_img)).setImageDrawable(item.getAppIcon());
-        ((TextView) view.findViewById(R.id.item_text)).setText(_name);
-        ((TextView)view.findViewById(R.id.item_packageName)).setText(_package);
-        view.setOnClickListener(new View.OnClickListener() {
+        ViewHolder holder = (ViewHolder) convertView.getTag();
+        holder.item_img.setImageDrawable(null);
+        holder.item_img.setImageDrawable(item.getAppIcon());
+        holder.item_text.setText(_name);
+        holder.item_packageName.setText(_package);
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 select(Name,packageName,className);
             }
         });
-        return view;
+        return convertView;
     }
 
 
