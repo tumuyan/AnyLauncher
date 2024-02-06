@@ -1,32 +1,21 @@
 package com.tumuyan.fixedplay.App;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.tumuyan.fixedplay.MainActivity;
 import com.tumuyan.fixedplay.R;
 
 import java.io.File;
@@ -96,6 +85,7 @@ public class SelectOne extends Activity {
 
                                         int selectedItemPosition = listView.getSelectedItemPosition();
                                         Log.i("App SelectorOne", "Keycode = " + keyCode + ", cursorPosition = " + selectedItemPosition);
+                                        if (selectedItemPosition < 0) return false;
                                         Item item = list.get(selectedItemPosition);
                                         itemAdapter.select(item.getName(), item.getPackageName(), item.getClassName() );
                                         return true;
@@ -117,6 +107,19 @@ public class SelectOne extends Activity {
             @Override
             public void onClick(View view) {
                 doSearch(SearchText.getText().toString());
+            }
+        });
+
+        SearchText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                        doSearch(SearchText.getText().toString());
+                        return true;
+                    }
+                }
+                return false;
             }
         });
     }
