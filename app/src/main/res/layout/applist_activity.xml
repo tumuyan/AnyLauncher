@@ -31,7 +31,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="App label/Package/Activity."
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:imeOptions="actionSearch" />
 
 
         <Button
