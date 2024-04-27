@@ -12,6 +12,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,6 +35,13 @@ public class MainActivity extends Activity {
         Log.w("MainActivity", "Create");
 
         SharedPreferences read = getSharedPreferences("setting", MODE_MULTI_PROCESS);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+//                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+
         final String splash_img = read.getString("splash_img", "");
 
         splash_time = read.getInt("splash_time", 0);
