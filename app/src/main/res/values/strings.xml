@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">AnyLauncher</string>
     <string name="about_main" >Choose any application as Launcher.</string>
-    <string name="about_author" translatable="false">By tumuyan,\n2018.11 to 2024.01</string>
+    <string name="about_author" translatable="false">By tumuyan,\n2018.11 to 2024.04</string>
     <string name="title_mode">Select Mode</string>
     <string name="title_selected">Selected App</string>
     <string name="item_r2">Switch application</string>
@@ -43,5 +43,7 @@
     <string name="btn_3">Delay</string>
     <string name="delay_desc">Delay when launching a app with Anylauncher for the first time after booting</string>
     <string name="home">Click Home 3 times</string>
+    <string name="about_link"><![CDATA[
+    Project homepage: https://github.com/tumuyan/AnyLauncher]]></string>
 
 </resources>

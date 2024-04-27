@@ -43,6 +43,7 @@
     <string name="btn_3">延迟启动</string>
     <string name="delay_desc">延迟（开机后第一次用Anylauncher启动应用时，做延时处理）</string>
     <string name="home">三击Home生效</string>
+    <string name="about_link"><![CDATA[复刻项目代码：https://github.com/tumuyan/AnyLauncher\n获取更多应用：https://tumuyan.notion.site/723a9f367a864e41b16b74e956224eb6?v=35c619e5bbe24e8d89ac8441c2b89153&pvs=4]]></string>
 
 
 </resources>
