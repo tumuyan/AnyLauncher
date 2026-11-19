@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
             if (combo > 3)
                 combo = 0;
             else {
-                if (time - lastTime < 500) {
+                if (time - lastTime < 1000) {
                     combo++;
                 } else {
                     combo = 0;
@@ -130,6 +130,9 @@ public class MainActivity extends Activity {
                     intent = packageManager.getLaunchIntentForPackage(app_2nd);
                     if (intent != null) {
                         intent.addCategory(Intent.CATEGORY_HOME);
+                        // 在桌面(Launcher)里启动其他应用时必须指定独立任务，否则目标应用会被放入 HOME task，
+                        // 之后按 Home 键无法回到本应用，连按三次进入备用启动器的逻辑也不会再被触发。
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                         Log.w("2nd2", "length>0 -> intent not null");
                         startActivity(intent);
                     } else {
@@ -140,6 +143,7 @@ public class MainActivity extends Activity {
                         if (class_2nd.length() > 5) {
                             intent.setClassName(app_2nd, class_2nd);
                         }
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                         try {
                             startActivity(intent);
                         } catch (Exception e) {
@@ -163,7 +167,10 @@ public class MainActivity extends Activity {
                 case "r2": {
                     Log.w("MainActivity mode2", mode);
                     Intent intent = packageManager.getLaunchIntentForPackage(app);
-                    if (intent != null) startActivity(intent);
+                    if (intent != null) {
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                        startActivity(intent);
+                    }
                     break;
                 }
 
